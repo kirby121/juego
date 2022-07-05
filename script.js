@@ -4,6 +4,8 @@ import { startGame, textHover } from "./start_screen.js"
 
 const d = document
 
+const screamer = () => console.log("perdiste :(");
+
 d.addEventListener("DOMContentLoaded", e => {
     setLS()
     textHover(".new")
@@ -19,5 +21,5 @@ d.addEventListener("DOMContentLoaded", e => {
     hide(".hide", "#game")
     statisticBtn(".statistics", ".statistics-screen")
     toggleBtn(".statistic button")
-    automaticStatisticSubstraction(".statistic div div", ".statistic button")
+    automaticStatisticSubstraction(".statistic div div", ".statistic button", screamer)
 })

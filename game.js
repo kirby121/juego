@@ -167,40 +167,71 @@ export function toggleBtn(btn) {
     });
 }
 
-export function automaticStatisticSubstraction(divs, buttons) {
+export function automaticStatisticSubstraction(divs, buttons, screamerFunction) {
     const $divs = d.querySelectorAll(divs),
-    $buttons = d.querySelectorAll(buttons)
+    $buttons = d.querySelectorAll(buttons),
+    $startBtn1 = d.querySelector(".new"),
+    $startBtn2 = d.querySelector(".continue")
 
     let ancho1 = 22.4,
     ancho2 = 22.4,
-    ancho3 = 22.4
+    ancho3 = 22.4,
+    screamer = false
 
     $divs.forEach(div => div.style.width = `22.4vw`);
 
-    setInterval(() => {
+    const startStatistics = () => {
+        setInterval(() => {
 
-        if (!$buttons[0].classList.contains("statistic-button-on")) ancho1 -= 0.5
-        if ($buttons[0].classList.contains("statistic-button-on") && ancho1 <= 22.4) ancho1 += 1
-        if (!$buttons[1].classList.contains("statistic-button-on")) ancho2 -= 0.5
-        if ($buttons[1].classList.contains("statistic-button-on") && ancho2 <= 22.4) ancho2 += 1
-        if (!$buttons[2].classList.contains("statistic-button-on")) ancho3 -= 0.5
-        if ($buttons[2].classList.contains("statistic-button-on") && ancho3 <= 22.4) ancho3 += 1
-
-        $divs[0].style.width = `${ancho1}vw`
-        $divs[1].style.width = `${ancho2}vw`
-        $divs[2].style.width = `${ancho3}vw`
-
-        /*if(!$buttons[0].classList.contains("statistic-button-on")){
-            ancho1 -= 0.5
+            if (!$buttons[0].classList.contains("statistic-button-on") && ancho1 >= -1) ancho1 -= 0.4
+            if ($buttons[0].classList.contains("statistic-button-on") && ancho1 <= 22.4) ancho1 += 1
+            if (!$buttons[1].classList.contains("statistic-button-on") && ancho1 >= -1) ancho2 -= 0.4
+            if ($buttons[1].classList.contains("statistic-button-on") && ancho2 <= 22.4) ancho2 += 1
+            if (!$buttons[2].classList.contains("statistic-button-on") && ancho1 >= -1) ancho3 -= 0.4
+            if ($buttons[2].classList.contains("statistic-button-on") && ancho3 <= 22.4) ancho3 += 1
+    
             $divs[0].style.width = `${ancho1}vw`
-        }
-        if(!$buttons[1].classList.contains("statistic-button-on")){
-            ancho2 -= 0.5
             $divs[1].style.width = `${ancho2}vw`
-        }
-        if(!$buttons[2].classList.contains("statistic-button-on")){
-            ancho3 -= 0.5
             $divs[2].style.width = `${ancho3}vw`
-        }*/
-    }, 1000);
+    
+            if(ancho1 >= 11.2) $divs[0].style.backgroundColor = "green"
+            if(ancho1 <= 11.2){
+                $divs[0].style.backgroundColor = "yellow"
+            }
+            if(ancho1 <= 5) {
+                $divs[0].style.backgroundColor = "red"
+            }
+    
+            if(ancho2 >= 11.2) $divs[1].style.backgroundColor = "green"
+            if(ancho2 <= 11.2){
+                $divs[1].style.backgroundColor = "yellow"
+            }
+            if(ancho2 <= 5) {
+                $divs[1].style.backgroundColor = "red"
+            }
+    
+            if(ancho3 >= 11.2) $divs[2].style.backgroundColor = "green"
+            if(ancho3 <= 11.2){
+                $divs[2].style.backgroundColor = "yellow"
+            }
+            if(ancho3 <= 5) {
+                $divs[2].style.backgroundColor = "red"
+            }
+    
+            /*Screamer*/
+    
+            if((ancho1 <= 0 || ancho2 <= 0 || ancho3 <= 0) && !screamer) {
+                screamer = true
+                screamerFunction()
+            }
+    
+    
+        }, 1000);
+    }
+
+    d.addEventListener("click", e => {
+        if(e.target === $startBtn1 || e.target === $startBtn2)
+        startStatistics()
+    } )
+    
 }
