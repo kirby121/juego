@@ -2,7 +2,7 @@ import { automaticStatisticSubstraction, cellphoneLight, hide, iluminate, monste
 import { timeStart } from "./game_time.js"
 import { startGame, textHover } from "./start_screen.js"
 
-const d = document
+const d = document 
 
 const screamer = () => console.log("perdiste :(");
 
