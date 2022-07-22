@@ -132,6 +132,14 @@ export function hide(btn, screen) {
         if(!$btn.classList.contains("hide-on")){
             $btn.classList.add("hide-on")
             $screen.classList.add("hide-background")
+            d.querySelector(".statistics-screen").classList.add("none")
+            d.querySelector(".statistics-screen").classList.remove("statistics-screen-on")
+            setTimeout(() => {
+                if($btn.classList.contains("hide-on")){
+                    localStorage.setItem("monster", false)
+                    console.log("cambiado a false");
+                }
+            }, 3000);
         }
         else{
             $btn.classList.remove("hide-on")
@@ -140,18 +148,21 @@ export function hide(btn, screen) {
     })
 }
 
-export function statisticBtn(btn, statistics, statisticScreen) {
+export function statisticBtn(btn, statistics) {
     const $btn = d.querySelector(btn),
     $statistics = d.querySelector(statistics)
 
     $btn.addEventListener("click", e => {
-        if($statistics.classList.contains("statistics-screen-on")){
-            $statistics.classList.remove("statistics-screen-on")
-            $statistics.classList.add("none")
-        }
-        else{
-            $statistics.classList.add("statistics-screen-on")
-            $statistics.classList.remove("none")
+        if(!d.querySelector(".hide").classList.contains("hide-on")){
+
+            if($statistics.classList.contains("statistics-screen-on")){
+                $statistics.classList.remove("statistics-screen-on")
+                $statistics.classList.add("none")
+            }
+            else{
+                $statistics.classList.add("statistics-screen-on")
+                $statistics.classList.remove("none")
+            }
         }
     })
 }
@@ -234,4 +245,63 @@ export function automaticStatisticSubstraction(divs, buttons, screamerFunction) 
         startStatistics()
     } )
     
+}
+
+export function time(btn, clock, win) {
+    const $btn = d.querySelector(btn),
+    $clock = d.querySelector(clock)
+
+    $btn.addEventListener("click", e => {
+        let seconds = 0,
+        minutes = 0
+
+        let interval = setInterval(() => {
+            seconds+= 1
+            
+            if(seconds % 60 == 0) {
+                minutes++
+                $clock.textContent = `${minutes} AM`
+            }
+
+            if(minutes === 6) {
+                minutes = "Ganaste :3"
+                win()
+            }
+        }, 1000);
+    })
+}
+
+export function win() {
+    /*Hacer función que se ejecutará al ganar*/
+    console.log("Ganaste :D");
+}
+
+export function monsterTime() {
+    let isMonster = false
+
+    const $clock = d.querySelector(".clock")
+
+    d.addEventListener("click", e => {
+        if(e.target === d.querySelector(".continue") || e.target === d.querySelector(".new")){
+            setTimeout(() => {
+                console.log("uwunt");
+
+                setInterval(() => {
+                    if(localStorage.getItem("monster") == "false"){
+                        localStorage.setItem("monster", true)
+                        console.log("ta en true");
+                        setTimeout(() => {
+                            if(localStorage.getItem("monster") == "true"){
+
+                                console.log("perdiste por el mounstro");
+                            }
+                            else console.log("te salvaste");
+                        }, 9000);
+                    }
+                }, Math.random() * (40000 - 1000) + 1000);
+            }, 20000);
+        }
+    })
+
+    // console.log(d.querySelector(".clock").textContent.replace(/\D/g,''))
 }

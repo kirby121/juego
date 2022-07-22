@@ -1,4 +1,4 @@
-import { automaticStatisticSubstraction, cellphoneLight, hide, iluminate, moveScreen, setLS, statisticBtn, toggleBtn } from "./game.js"
+import { automaticStatisticSubstraction, cellphoneLight, hide, iluminate, monsterTime, moveScreen, setLS, statisticBtn, time, toggleBtn, win } from "./game.js"
 import { timeStart } from "./game_time.js"
 import { startGame, textHover } from "./start_screen.js"
 
@@ -22,4 +22,7 @@ d.addEventListener("DOMContentLoaded", e => {
     statisticBtn(".statistics", ".statistics-screen")
     toggleBtn(".statistic button")
     automaticStatisticSubstraction(".statistic div div", ".statistic button", screamer)
+    time(".new", ".clock")
+    time(".continue", ".clock", () => console.log("ganaste :333"))
+    monsterTime()
 })

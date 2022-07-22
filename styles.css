@@ -245,6 +245,23 @@ body{
     background-color:rgba(245, 245, 245, 0.7);
 }
 
+.clock{
+    position: fixed;
+    top: 5vh;
+    right: 10vw;
+    color: whitesmoke;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/*win screen*/
+
+.win-screen{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
 
 /*Responsive*/
 
