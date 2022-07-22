@@ -298,7 +298,7 @@ export function monsterTime() {
                             else console.log("te salvaste");
                         }, 9000);
                     }
-                }, Math.random() * (40000 - 1000) + 1000);
+                }, Math.random() * (60000 - 10000) + 10000);
             }, 20000);
         }
     })
