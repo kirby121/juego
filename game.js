@@ -47,6 +47,12 @@ lose = () => {
     }
 }
 
+export function loadImages() {
+    d.querySelector(".audio").load()
+    d.querySelector(".screamer").load()
+    d.querySelector(".win-audio").load()
+}
+
 export function setLS() {
     localStorage.setItem("monster", false)
 }
