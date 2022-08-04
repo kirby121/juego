@@ -1,10 +1,8 @@
-import { automaticStatisticSubstraction, cellphoneLight, hide, iluminate, monsterTime, moveScreen, setLS, statisticBtn, time, toggleBtn, win } from "./game.js"
+import { automaticStatisticSubstraction, cellphoneLight, hide, iluminate, monsterTime, moveScreen, setLS, startMusic, statisticBtn, time, toggleBtn} from "./game.js"
 import { timeStart } from "./game_time.js"
 import { startGame, textHover } from "./start_screen.js"
 
-const d = document 
-
-const screamer = () => console.log("perdiste :(");
+const d = document
 
 d.addEventListener("DOMContentLoaded", e => {
     setLS()
@@ -21,8 +19,9 @@ d.addEventListener("DOMContentLoaded", e => {
     hide(".hide", "#game")
     statisticBtn(".statistics", ".statistics-screen")
     toggleBtn(".statistic button")
-    automaticStatisticSubstraction(".statistic div div", ".statistic button", screamer)
+    automaticStatisticSubstraction(".statistic div div", ".statistic button")
     time(".new", ".clock")
-    time(".continue", ".clock", () => console.log("ganaste :333"))
+    time(".continue", ".clock")
     monsterTime()
+    startMusic(".new", ".start", ".audio")
 })

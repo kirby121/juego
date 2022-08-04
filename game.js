@@ -1,7 +1,66 @@
-const d = document
+let state = "none"
+
+const d = document,
+
+win = () => {
+
+    if(state === "none"){
+        state = "win"
+
+        const $winScreen = d.querySelector(".win-screen"),
+        $text = d.querySelector(".win-screen h2"),
+        $winAudio = d.querySelector(".win-audio"),
+        $bgMusic = d.querySelector(".audio")
+
+        $winAudio.play()
+        $bgMusic.pause()
+
+        $winScreen.classList.remove("none")
+        
+    setTimeout(() =>  $text.textContent = "" 
+    , 1000);
+    setTimeout(() =>  $text.textContent = "5:59" 
+    , 2000);
+    setTimeout(() =>  $text.textContent = "" 
+    , 3000);
+    setTimeout(() =>  $text.textContent = "6:00" 
+    , 4000);
+    setTimeout(() =>  $text.textContent = "" 
+    , 5000);
+    setTimeout(() =>  $text.textContent = "6:00" 
+    , 6000);
+}
+
+},
+
+lose = () => {
+    if(state === "none"){
+        const $loseScreen = d.querySelector(".lose-screen"),
+        $audio = d.querySelector(".screamer"),
+        $bgMusic = d.querySelector(".audio")
+        
+        
+        $audio.play()
+        $bgMusic.pause()
+        $loseScreen.classList.remove("none")
+        state = "lose"
+    }
+}
 
 export function setLS() {
     localStorage.setItem("monster", false)
+}
+
+export function startMusic(btn1, btn2, audio) {
+    const $btn1 = d.querySelector(btn1),
+    $btn2 = d.querySelector(btn2),
+    $audio = d.querySelector(audio)
+
+    $audio.volume = 0.3
+
+    d.addEventListener("click", e => {
+        if(e.target === $btn1 || e.target === $btn2) $audio.play()
+    })
 }
 
 export function moveScreen(screen) {
@@ -137,7 +196,6 @@ export function hide(btn, screen) {
             setTimeout(() => {
                 if($btn.classList.contains("hide-on")){
                     localStorage.setItem("monster", false)
-                    console.log("cambiado a false");
                 }
             }, 3000);
         }
@@ -194,11 +252,11 @@ export function automaticStatisticSubstraction(divs, buttons, screamerFunction) 
     const startStatistics = () => {
         setInterval(() => {
 
-            if (!$buttons[0].classList.contains("statistic-button-on") && ancho1 >= -1) ancho1 -= 0.4
+            if (!$buttons[0].classList.contains("statistic-button-on") && ancho1 >= -1) ancho1 -= 0.5
             if ($buttons[0].classList.contains("statistic-button-on") && ancho1 <= 22.4) ancho1 += 1
-            if (!$buttons[1].classList.contains("statistic-button-on") && ancho1 >= -1) ancho2 -= 0.4
+            if (!$buttons[1].classList.contains("statistic-button-on") && ancho1 >= -1) ancho2 -= 0.5
             if ($buttons[1].classList.contains("statistic-button-on") && ancho2 <= 22.4) ancho2 += 1
-            if (!$buttons[2].classList.contains("statistic-button-on") && ancho1 >= -1) ancho3 -= 0.4
+            if (!$buttons[2].classList.contains("statistic-button-on") && ancho1 >= -1) ancho3 -= 0.5
             if ($buttons[2].classList.contains("statistic-button-on") && ancho3 <= 22.4) ancho3 += 1
     
             $divs[0].style.width = `${ancho1}vw`
@@ -233,7 +291,7 @@ export function automaticStatisticSubstraction(divs, buttons, screamerFunction) 
     
             if((ancho1 <= 0 || ancho2 <= 0 || ancho3 <= 0) && !screamer) {
                 screamer = true
-                screamerFunction()
+                lose()
             }
     
     
@@ -247,7 +305,7 @@ export function automaticStatisticSubstraction(divs, buttons, screamerFunction) 
     
 }
 
-export function time(btn, clock, win) {
+export function time(btn, clock) {
     const $btn = d.querySelector(btn),
     $clock = d.querySelector(clock)
 
@@ -256,7 +314,7 @@ export function time(btn, clock, win) {
         minutes = 0
 
         let interval = setInterval(() => {
-            seconds+= 1
+            seconds++
             
             if(seconds % 60 == 0) {
                 minutes++
@@ -264,16 +322,10 @@ export function time(btn, clock, win) {
             }
 
             if(minutes === 6) {
-                minutes = "Ganaste :3"
                 win()
             }
         }, 1000);
     })
-}
-
-export function win() {
-    /*Hacer función que se ejecutará al ganar*/
-    console.log("Ganaste :D");
 }
 
 export function monsterTime() {
@@ -284,24 +336,19 @@ export function monsterTime() {
     d.addEventListener("click", e => {
         if(e.target === d.querySelector(".continue") || e.target === d.querySelector(".new")){
             setTimeout(() => {
-                console.log("uwunt");
 
                 setInterval(() => {
                     if(localStorage.getItem("monster") == "false"){
                         localStorage.setItem("monster", true)
-                        console.log("ta en true");
                         setTimeout(() => {
                             if(localStorage.getItem("monster") == "true"){
 
-                                console.log("perdiste por el mounstro");
+                                lose()
                             }
-                            else console.log("te salvaste");
-                        }, 9000);
+                        }, 7000);
                     }
-                }, Math.random() * (60000 - 10000) + 10000);
+                }, Math.random() * (40000 - 25000) + 25000);
             }, 20000);
         }
     })
-
-    // console.log(d.querySelector(".clock").textContent.replace(/\D/g,''))
 }
