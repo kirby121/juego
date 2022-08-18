@@ -74,6 +74,18 @@ export function moveScreen(screen) {
     screenWidth = window.screen.width,
     half = screenWidth/2
 
+    window.addEventListener("resize", e => {
+        console.log("uwunt");
+        const $screen = d.querySelector(screen),
+    screenWidth = window.screen.width,
+    half = screenWidth/2
+
+    $screen.addEventListener("click", e => {
+        if(e.clientX > half) $screen.classList.add("move-right")
+        if(e.clientX < half) $screen.classList.remove("move-right")
+    })
+    })
+
     d.addEventListener("keydown", e => {
         if(e.key === "ArrowRight") $screen.classList.add("move-right")
         else if(e.key === "ArrowLeft") $screen.classList.remove("move-right")
